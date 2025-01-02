@@ -6,6 +6,7 @@
       ansible.builtin.copy:
         src: /var/lib/awx/projects/dynatrace-easytravel-linux-x86_64.jar
         dest: "/home/{{ item }}/dynatrace-easytravel-linux-x86_64.jar"
+        remote_src: yes
         mode: '0644'
       when: item == "easytravel{{ inventory_hostname[-1] }}"
       with_items:
