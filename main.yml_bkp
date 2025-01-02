@@ -1,0 +1,33 @@
+---
+- name: Copier le fichier EasyTravel sur la VM concernée
+  ansible.builtin.copy:
+    src: /exploit/easytravel1/dynatrace-easytravel-linux-x86_64.jar
+    dest: "/home/{{ item }}/dynatrace-easytravel-linux-x86_64.jar"
+    mode: '0644'
+  when: item == "easytravel{{ inventory_hostname[-1] }}"
+  with_items:
+    - easytravel1
+    - easytravel2
+    - easytravel3
+    - easytravel4
+    - easytravel5
+    - easytravel6
+  tags: 
+    - easytravel
+- name: Installer EasyTravel sur la VM concernée
+  ansible.builtin.shell: |
+    /usr/bin/java -jar /home/{{ item }}/dynatrace-easytravel-linux-x86_64.jar -y
+  args:
+    chdir: "/home/{{ item }}"
+  become: yes
+  become_user: "{{ item }}"
+  when: item == "easytravel{{ inventory_hostname[-1] }}"
+  with_items:
+    - easytravel1
+    - easytravel2
+    - easytravel3
+    - easytravel4
+    - easytravel5
+    - easytravel6
+  tags: 
+    - easytravel
