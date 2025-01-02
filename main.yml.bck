@@ -1,0 +1,30 @@
+---
+
+- name: Copy file
+  copy:
+       src: /exploit/easytravel1/dynatrace-easytravel-linux-x86_64.jar
+       dest: "/home/{{ item }}" 
+       owner: "{ item }}"
+       group: "{{ item }}" 
+  with_items:
+     - easytravel2
+     - easytravel3
+     - easytravel4
+     - easytravel5
+     - easytravel6
+     - easytravel1
+    
+
+- name: Installation de easytravel
+  shell: "/usr/bin/java -jar /home/{{ item }}/dynatrace-easytravel-linux-x86_64.jar -y"
+  become_user: "{{ item }}"
+  args:
+     chdir: "/home/{{ item }}"
+  with_items:
+     - easytravel2
+     - easytravel3
+     - easytravel4 
+     - easytravel5
+     - easytravel6
+     - easytravel1
+
