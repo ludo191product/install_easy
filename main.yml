@@ -4,7 +4,7 @@
   tasks:
     - name: Copier le fichier EasyTravel sur la VM concernée
       ansible.builtin.copy:
-        src: /exploit/easytravel1/dynatrace-easytravel-linux-x86_64.jar
+        src: /var/lib/awx/projects/dynatrace-easytravel-linux-x86_64.jar
         dest: "/home/{{ item }}/dynatrace-easytravel-linux-x86_64.jar"
         mode: '0644'
       when: item == "easytravel{{ inventory_hostname[-1] }}"
